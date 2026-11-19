@@ -34,6 +34,13 @@ def main() -> int:
         print(f"error: {SOURCE} not found", file=sys.stderr)
         return 1
     shutil.copyfile(SOURCE, dest)
+    if dest.stat().st_size != SOURCE.stat().st_size:
+        print(
+            f"error: {dest} size {dest.stat().st_size} != "
+            f"{SOURCE} size {SOURCE.stat().st_size}",
+            file=sys.stderr,
+        )
+        return 1
     print(f"wrote {dest}")
     return 0
 
